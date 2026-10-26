@@ -421,8 +421,16 @@ inline double polyBlep(double t, double dt) {
 // analogue's SynthCore keeps a runtime copy (mControlBlock, default 32, a
 // test-only override) and its goldens are rendered at this value. A new
 // consumer uses this constant rather than its own literal 32.
+//
+// It is the one name here inside a namespace, and on purpose: it was added
+// after the move, and nassau-analogue's tests already define their own
+// file-local kControlBlock; a second one at global scope made every use of
+// theirs ambiguous. Everything that came over from nassau-analogue stays at
+// global scope, unchanged, so its consumers compile without an edit.
 // ============================================================================
+namespace nassau {
 constexpr int kControlBlock = 32;
+}  // namespace nassau
 
 // ============================================================================
 // AdsrEnv — the analogue-style one-pole ADSR of DESIGN.md §6: a one-pole

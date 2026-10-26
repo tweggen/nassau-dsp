@@ -7,7 +7,7 @@ NassauDigital's core, can build it from one checkout.
 
 | Header | What | From |
 |---|---|---|
-| `Source/DSP/synth_dsp.h` | `nassau_real`, `kControlBlock` (the 32-sample control-block contract), `TptOnePole`, `OnePoleHP`/`OnePoleLP`, `SmoothedValue`, `ScopedNoDenormals`, `shapeTriodeK`, `shapeCubic`, `Xorshift32`, `PinkFilter`, `polyBlep`, `AdsrEnv`, `Lfo` | nassau-analogue (and nassau-zermatt before it) |
+| `Source/DSP/synth_dsp.h` | `nassau_real`, `nassau::kControlBlock` (the 32-sample control-block contract), `TptOnePole`, `OnePoleHP`/`OnePoleLP`, `SmoothedValue`, `ScopedNoDenormals`, `shapeTriodeK`, `shapeCubic`, `Xorshift32`, `PinkFilter`, `polyBlep`, `AdsrEnv`, `Lfo` | nassau-analogue (and nassau-zermatt before it) |
 | `Source/DSP/synth_filter.h` | `LadderFilter` (24 dB/oct ZDF low-pass, saturating feedback), `SvfFilter` (12 dB/oct low-pass), `HpfCascade` (non-resonant 12/24 dB/oct high-pass) | nassau-analogue |
 
 Both moved out of nassau-analogue unchanged in code for NassauDigital's gate

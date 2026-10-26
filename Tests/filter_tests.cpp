@@ -48,14 +48,14 @@ void checkNum(const std::string& what, bool ok, double value) {
 constexpr double kFs = 48000.0;
 
 // Runs a filter the way its contract says: setControlRate once per
-// kControlBlock samples, process() per sample in between.
+// nassau::kControlBlock samples, process() per sample in between.
 struct Ladder {
   LadderFilter f;
   double fc, res;
   int n = 0;
   Ladder(double fc_, double res_) : fc(fc_), res(res_) { f.reset(); }
   float tick(float x) {
-    if (n++ % kControlBlock == 0) f.setControlRate(fc, kFs, res);
+    if (n++ % nassau::kControlBlock == 0) f.setControlRate(fc, kFs, res);
     return static_cast<float>(f.process(x));
   }
 };
@@ -66,7 +66,7 @@ struct Svf {
   int n = 0;
   Svf(double fc_, double res_) : fc(fc_), res(res_) { f.reset(); }
   float tick(float x) {
-    if (n++ % kControlBlock == 0) f.setControlRate(fc, kFs, res);
+    if (n++ % nassau::kControlBlock == 0) f.setControlRate(fc, kFs, res);
     return static_cast<float>(f.process(x));
   }
 };
@@ -78,7 +78,7 @@ struct Hpf {
   int n = 0;
   Hpf(double fc_, int poles_) : fc(fc_), poles(poles_) { f.reset(); }
   float tick(float x) {
-    if (n++ % kControlBlock == 0) f.setControlRate(fc, kFs);
+    if (n++ % nassau::kControlBlock == 0) f.setControlRate(fc, kFs);
     return static_cast<float>(f.process(x, poles));
   }
 };

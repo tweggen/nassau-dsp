@@ -64,7 +64,7 @@ void renderCase(const Case& c, const std::vector<float>& in, std::vector<float>&
   lad.reset();
   svf.reset();
   hpf.reset();
-  const int blocks = kFrames / kControlBlock;
+  const int blocks = kFrames / nassau::kControlBlock;
   for (int b = 0; b < blocks; ++b) {
     const double fc = cutoffAt(b, blocks);
     // Per-sample ramp of g toward this block's target, as SynthCore does.
@@ -78,9 +78,9 @@ void renderCase(const Case& c, const std::vector<float>& in, std::vector<float>&
       case Kind::Shaper: break;
     }
     if (b == 0) gStart = gTarget;
-    for (int i = 0; i < kControlBlock; ++i) {
-      const int n = b * kControlBlock + i;
-      const double gNow = gStart + (gTarget - gStart) * static_cast<double>(i + 1) / kControlBlock;
+    for (int i = 0; i < nassau::kControlBlock; ++i) {
+      const int n = b * nassau::kControlBlock + i;
+      const double gNow = gStart + (gTarget - gStart) * static_cast<double>(i + 1) / nassau::kControlBlock;
       const nassau_real x = static_cast<nassau_real>(in[static_cast<size_t>(n)]);
       double y = 0.0;
       switch (c.kind) {
