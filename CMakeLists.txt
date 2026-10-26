@@ -4,11 +4,10 @@ project(NassauDSP VERSION 0.1.0 LANGUAGES CXX)
 # nassau-dsp: shared, header-only DSP primitives of the Nassau family.
 #
 # Standard C++17 headers only (R2): no Qt, no IPlug2, no plugin SDK, and no
-# find_package of anything. A consumer adds this directory (as a submodule)
-# and links the INTERFACE target:
-#
-#     add_subdirectory(nassau-dsp)
-#     target_link_libraries(my_core PUBLIC nassau::dsp)
+# find_package of anything. A consumer finds this directory through the
+# locator cmake/bootstrap/NassauDSP.cmake (copied verbatim into it), which
+# add_subdirectory()s it, and links the INTERFACE target nassau::dsp. It is
+# never a nested submodule of a consumer; nassau-suite pins it once.
 #
 # The headers keep their nassau-analogue names (synth_dsp.h, synth_filter.h)
 # so that nassau-analogue's own sources and tests include them unchanged.

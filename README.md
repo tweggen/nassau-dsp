@@ -16,12 +16,22 @@ nassau-analogue's design sections, where each was decided and gated.
 
 ## Using it
 
-Add it as a submodule and link the interface target:
+nassau-dsp is pinned **once** for a release, as a top-level submodule of
+nassau-suite, which passes `-DNASSAU_DSP_DIR` to every component. A consumer
+never carries it as a nested submodule (a second pin is a second answer to
+which DSP shipped). Instead it copies the locator
+[`cmake/bootstrap/NassauDSP.cmake`](cmake/bootstrap/NassauDSP.cmake) verbatim
+to its own `cmake/NassauDSP.cmake` and does:
 
 ```cmake
-add_subdirectory(nassau-dsp)
+set(NASSAU_DSP_GIT_REF "<commit sha or tag>")   # the bare-clone fallback
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/NassauDSP.cmake)
 target_link_libraries(my_core PUBLIC nassau::dsp)
 ```
+
+It resolves, in this one order: an explicit `-DNASSAU_DSP_DIR`, a sibling
+checkout `../nassau-dsp`, then a FetchContent of `NASSAU_DSP_GIT_REF`, and logs
+which one and at which commit.
 
 Tests build only when nassau-dsp is the top-level project. Two definitions
 change what the headers compile to and must be set directory-wide by the
