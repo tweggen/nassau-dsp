@@ -1,0 +1,23 @@
+name: CI
+
+# The jobs call ci/gates.sh and nothing else of substance: a move off GitHub
+# rewrites this file, not the gate. Header-only, no SDK, no credentials.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  gates:
+    name: Gate (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Gate
+        shell: bash
+        run: ./ci/gates.sh
